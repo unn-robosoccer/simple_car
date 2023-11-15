@@ -13,17 +13,20 @@ if __name__ == '__main__':
     while(True):
         ret, frame = cap.read()
 
+        frame = cv2.GaussianBlur(frame, (45, 45), cv2.BORDER_DEFAULT)
         cv2.imshow('original', cv2.resize(frame, (0, 0), fx=0.5, fy=0.5))
 
         hsv = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
         mask = cv2.inRange(hsv, lower_red, upper_red)
         frame = cv2.bitwise_and(frame, frame, mask=mask)
 
-        frame[:200, :] = 0
-        frame[-100:, :] = 0
+
+        # frame[-100:, :] = 0
 
         gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
-        edges = Canny(gray, 100, 170)
+        edges = Canny(gray, 50, 150)
+        edges[:400, :] = 0
+        edges = utils.region_of_interest(edges)
         #cv2.imshow('Video2', edges)
 
         res = utils.linedetect(edges)
