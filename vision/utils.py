@@ -9,6 +9,7 @@ cf_high_image = 0.5
 
 rightSlope, leftSlope, rightIntercept, leftIntercept = [], [], [], []
 prev_right_x2, prev_left_x2 = 287, 470
+center_interest = 710
 
 def draw_lines(img, lines, thickness=5):
     global rightSlope, leftSlope, rightIntercept, leftIntercept, prev_right_x1, prev_right_x2, prev_left_x1, prev_left_x2
@@ -24,7 +25,7 @@ def draw_lines(img, lines, thickness=5):
             for x1, y1, x2, y2 in line:
                 slope = (y1 - y2) / (x1 - x2)
                 if slope > 0.1:
-                    if x1 < 706:
+                    if x1 < center_interest:
                         yintercept = y2 - (slope * x2)
                         leftSlope.append(slope)
                         leftIntercept.append(yintercept)
@@ -33,7 +34,7 @@ def draw_lines(img, lines, thickness=5):
                         rightSlope.append(slope)
                         rightIntercept.append(yintercept)
                 elif slope < -0.1:
-                    if x1 > 706:
+                    if x1 > center_interest:
                         yintercept = y2 - (slope * x2)
                         rightSlope.append(slope)
                         rightIntercept.append(yintercept)

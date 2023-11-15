@@ -25,7 +25,7 @@ if __name__ == '__main__':
 
         gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
         edges = Canny(gray, 50, 150)
-        edges[:400, :] = 0
+        edges[:550, :] = 0
         edges = utils.region_of_interest(edges)
         #cv2.imshow('Video2', edges)
 
