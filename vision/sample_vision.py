@@ -8,7 +8,7 @@ if __name__ == '__main__':
 
     while(True):
         ret, frame = cap.read()
-        state = vision(frame, show=True)
+        state = vision(frame, True, 710)
         if cv2.waitKey(1) & 0xFF == ord('q'):
             break
 

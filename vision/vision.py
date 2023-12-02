@@ -2,12 +2,12 @@ import cv2
 from utils import get_edges, linedetect
 
 
-def vision(frame, show=False):
+def vision(frame, show=False, center_point=None):
     if show:
         cv2.imshow('frame', cv2.resize(frame, (0, 0), fx=0.5, fy=0.5))
 
     edges = get_edges(frame)
-    result = linedetect(edges)
+    result = linedetect(edges, center_point)
 
     if show:
         image_with_lines = result['image']

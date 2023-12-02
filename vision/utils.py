@@ -107,9 +107,7 @@ def calculate_distance_to_center(img, lines, center_point=None, thickness=5, dra
         pass  # Handle any value errors that might occur
 
 
-
-
-def hough_lines(img, rho, theta, threshold, min_line_len, max_line_gap):
+def hough_lines(img, rho, theta, threshold, min_line_len, max_line_gap, center_point=None):
     """
     `img` should be the output of a Canny transform.
     """
@@ -129,14 +127,14 @@ def hough_lines(img, rho, theta, threshold, min_line_len, max_line_gap):
     #
     # cv2.imshow("detected lines", image_with_lines)
 
-    distance_to_center = calculate_distance_to_center(line_img, lines, 710)
+    distance_to_center = calculate_distance_to_center(line_img, lines, center_point)
 
     return {'image': line_img,
             'distance_to_center': distance_to_center}
 
 
-def linedetect(img):
-    return hough_lines(img, 1, np.pi / 180, 70, 10, 5)
+def linedetect(img, center_point=None):
+    return hough_lines(img, 1, np.pi / 180, 70, 10, 5, center_point)
 
 
 def region_of_interest(image):
