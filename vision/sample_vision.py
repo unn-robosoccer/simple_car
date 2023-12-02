@@ -1,39 +1,14 @@
 import cv2
-import utils
-from cv2 import Canny
 import numpy as np
+from vision import vision
 
 
 if __name__ == '__main__':
     cap = cv2.VideoCapture('../videos/line_on_floor.mp4')
-    lower_red = np.array([0, 100, 100])
-    upper_red = np.array([10, 255, 255])
-
 
     while(True):
         ret, frame = cap.read()
-
-        frame = cv2.GaussianBlur(frame, (45, 45), cv2.BORDER_DEFAULT)
-        cv2.imshow('original', cv2.resize(frame, (0, 0), fx=0.5, fy=0.5))
-
-        hsv = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
-        mask = cv2.inRange(hsv, lower_red, upper_red)
-        frame = cv2.bitwise_and(frame, frame, mask=mask)
-
-
-        # frame[-100:, :] = 0
-
-        gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
-        edges = Canny(gray, 50, 150)
-        edges[:550, :] = 0
-        edges = utils.region_of_interest(edges)
-        #cv2.imshow('Video2', edges)
-
-        res = utils.linedetect(edges)
-        res = cv2.addWeighted(frame, 1, res, 0.8, 0)
-        res = cv2.resize(res, (0, 0), fx=0.5, fy=0.5)
-
-        cv2.imshow('detected road', res)  # cv2.imshow('frame',gray)
+        state = vision(frame, show=True)
         if cv2.waitKey(1) & 0xFF == ord('q'):
             break
 
