@@ -72,7 +72,7 @@ def calculate_distance_to_center(img, lines, center_point=None, thickness=5, dra
         center_of_road = (left_line_x2 + right_line_x2) // 2
 
         # Calculate the distance from the center of the road to the center point
-        distance_to_center = center_of_road - center_point
+        distance_to_center = (center_of_road - center_point)/((right_line_x2-left_line_x2)/2)
 
         # If draw is True, visualize the lines and center point on the image
         if draw:
